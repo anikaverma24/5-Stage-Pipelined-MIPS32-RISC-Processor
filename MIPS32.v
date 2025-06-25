@@ -6,7 +6,7 @@
 // Create Date: 22.06.2025 12:18:19
 // Design Name: 
 // Module Name: MIPS32
-// Project Name: 
+// Project Name: 5 Stage Pipelined MIPS32 RISC Processor
 // Target Devices: 
 // Tool Versions: 
 // Description: 
