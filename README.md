@@ -1,5 +1,3 @@
-# 5-Stage-Pipelined-MIPS32-RISC-Processor
-
 # 🚀 MIPS32 RISC Processor – 5-Stage Pipelined Architecture
 
 This project implements a **MIPS32-based RISC processor** with a classic 5-stage pipeline using Verilog. The design simulates instruction-level parallelism and is suitable for understanding pipelining, hazard handling, and basic CPU architecture.
@@ -55,5 +53,6 @@ It includes support for a variety of arithmetic, logical, memory, and branch ins
 
 ---
 
-## 📂 Project Structure
+## Conclusion
 
+A 32-bit MIPS-based RISC processor is successfully designed, modelled, and simulated. With a pipeline design and Verilog HDL, it is effectively executed. It is determined that the functionality is correct by comparing the simulation's results to those that were predicted. 
