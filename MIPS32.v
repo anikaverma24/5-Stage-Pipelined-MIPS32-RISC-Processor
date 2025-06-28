@@ -1,24 +1,7 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 22.06.2025 12:18:19
-// Design Name: 
 // Module Name: MIPS32
 // Project Name: 5 Stage Pipelined MIPS32 RISC Processor
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
+// Description: Basic pipelined MIPS32 processor with 5 stages: IF, ID, EX, MEM, WB
 
 module MIPS32(clk1, clk2);
     input clk1, clk2;
@@ -30,9 +13,10 @@ module MIPS32(clk1, clk2);
     reg EX_MEM_cond;
     reg [31:0] MEM_WB_IR, MEM_WB_ALUOut, MEM_WB_LMD;
     
-    reg [31:0] Reg[0:31];       //Register Bank
-    reg [31:0] Mem[0:1023];     //memory
-    
+    reg [31:0] Reg[0:31];       // 32 General-purpose registers
+    reg [31:0] Mem[0:1023];     // Instruction and data memory
+
+    // opcodes
     parameter ADD   = 6'b000000,
               SUB   = 6'b000001,
               AND   = 6'b000010,
@@ -47,7 +31,8 @@ module MIPS32(clk1, clk2);
               SLTI  = 6'b001100,
               BNEQZ = 6'b001101,
               BEQZ  = 6'b001110;
-              
+
+    // Instruction types
     parameter RR_ALU  = 3'b000,
               RM_ALU  = 3'b001,
               LOAD    = 3'b010,
@@ -55,10 +40,10 @@ module MIPS32(clk1, clk2);
               BRANCH  = 3'b100,
               HALT    = 3'b101; 
             
-    reg HALTED;
-    reg TAKEN_BRANCH;
+    reg HALTED;        // set after HLT instruction is executed (in WB stage)
+    reg TAKEN_BRANCH;  // used to disable instructions after branch
     
-                // IF Stage
+//IF Stage 
 always @(posedge clk1)
     if(HALTED == 0)
     begin
@@ -77,7 +62,7 @@ always @(posedge clk1)
             end
     end
     
-                //ID Stage
+//ID Stage
 always @(posedge clk2)
     if(HALTED == 0)
     begin
@@ -102,7 +87,7 @@ always @(posedge clk2)
         endcase
     end
     
-                    //EX Stage
+//EX Stage
 always @(posedge clk1)
     if(HALTED == 0)
         begin
@@ -144,7 +129,7 @@ always @(posedge clk1)
             endcase          
         end
         
-                //MEM Stage
+//MEM Stage
 always @(posedge clk2)
     if(HALTED == 0)
         begin
@@ -162,7 +147,7 @@ always @(posedge clk2)
             endcase
         end
         
-                    //WB Stage
+//WB Stage
 always @(posedge clk1)
     begin
         if(TAKEN_BRANCH == 0)           //if branch is taken then disable write
