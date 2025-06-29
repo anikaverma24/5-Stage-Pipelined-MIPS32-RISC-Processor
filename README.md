@@ -23,7 +23,7 @@ It includes support for a variety of arithmetic, logical, memory, and branch ins
 - 5-stage pipelined datapath
 - 32 general-purpose registers
 - Synchronous instruction and data memory
-- Instruction types: R-type, I-type
+- Instruction types: R-type, I-type, J-type
 - Branching and control flow (`BEQZ`, `BNEQZ`)
 - HALT mechanism to stop execution
 - Parameterized opcodes and instruction types
